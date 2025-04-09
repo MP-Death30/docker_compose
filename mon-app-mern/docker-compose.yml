@@ -5,6 +5,8 @@
       - "3000:80"
     depends_on:
       - backend
+    networks:
+      - mern-app-network
 
   backend:
     build: ./backend
@@ -12,6 +14,8 @@
       - "5000:5000"
     depends_on:
       - mongo
+    networks:
+      - mern-app-network
 
   mongo:
     image: mongo
@@ -19,6 +23,12 @@
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - mern-app-network
 
 volumes:
   mongo-data:
+
+networks:
+  mern-app-network:
+    driver: bridge
